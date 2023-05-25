@@ -10,6 +10,7 @@ public:
 		KINEMATIC,
 		DYNAMIC
 	};
+
 public:
 	Body(class Shape* shape, const glm::vec2& position, const glm::vec2& velocity = {0, 0}, float mass = 1, Type type = Type::DYNAMIC) :
 		m_shape{ shape },
@@ -18,7 +19,7 @@ public:
 		m_mass{ mass },
 		type { type }
 	{
-		m_invMass = (mass == 0) ? 0 : 1 / mass;
+		m_invMass = (mass == 0 || type != DYNAMIC) ? 0 : 1 / mass;
 	}
 
 	void ApplyForce(const glm::vec2& force);
@@ -42,4 +43,6 @@ public:
 	float m_invMass{ 1 };
 	float m_damping{ 1 };
 	float m_gravityScale{ 1 };
+
+	float m_restitution{ 0.3f };
 };
