@@ -16,7 +16,7 @@ void JointTest::Initialize()
 {
 	Test::Initialize();
 
-	m_anchor = new Body(new CircleShape(0.7, { 1, 1, 1, 1 }), { 0, 0 }, { 0, 0 }, 0, Body::KINEMATIC);
+	m_anchor = new Body(new CircleShape(0.7f, { 1, 1, 1, 1 }), { 0, 0 }, { 0, 0 }, 0, Body::KINEMATIC);
 	m_world->AddBody(m_anchor);
 
 	auto prevBody = m_anchor;
@@ -24,7 +24,7 @@ void JointTest::Initialize()
 #if defined (CHAIN_SIZE)
 	for (int i = 0; i < CHAIN_SIZE; i++)
 	{
-		auto body = new Body(new CircleShape(0.5, { 1, 1, 1, 1 }), { 0, 0 }, { 0, 0 }, 1, Body::DYNAMIC);
+		auto body = new Body(new CircleShape(0.5f, { 1, 1, 1, 1 }), { 0, 0 }, { 0, 0 }, 1, Body::DYNAMIC);
 		body->m_damping = BODY_DAMPING;
 		m_world->AddBody(body);
 
@@ -42,7 +42,7 @@ void JointTest::Initialize()
 		std::vector<Body*> bodies;
 		for (int j = 0; j < GRID_WIDTH; j++)
 		{
-			auto body = new Body(new CircleShape(0.5, { 1, 1, 1, 1 }), { prevBody->m_position.x + j, prevBody->m_position.y + i }, { 0, 0 }, 1, Body::DYNAMIC);
+			auto body = new Body(new CircleShape(0.5f, { 1, 1, 1, 1 }), { prevBody->m_position.x + j, prevBody->m_position.y + i }, { 0, 0 }, 1, Body::DYNAMIC);
 			body->m_damping = BODY_DAMPING;
 			m_world->AddBody(body);
 			bodies.push_back(body);

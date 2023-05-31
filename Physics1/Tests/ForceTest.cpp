@@ -43,7 +43,7 @@ void ForceTest::Update()
 	Test::Update();
 	if (m_input->GetMouseButton(0))
 	{
-		glm::vec2 velocity = randomUnitCircle() * randomf(0.2, 0.3);
+		glm::vec2 velocity = randomUnitCircle() * randomf(0.2f, 0.3f);
 
 		float size = randomf(1, 5);
 		auto body = new Body(new CircleShape(size * 5, { randomf(0, 255), randomf(0, 255), randomf(0, 255), randomf(0, 255) }), m_graphics->ScreenToWorld(m_input->GetMousePosition()), velocity);

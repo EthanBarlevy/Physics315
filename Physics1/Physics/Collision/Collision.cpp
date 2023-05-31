@@ -15,7 +15,7 @@ namespace collision
         float distance = glm::length(direction);
         if (distance == 0)
         {
-            direction = { randomf(-0.05, 0.05), randomf(-0.05, 0.05) };
+            direction = { randomf(-0.05f, 0.05f), randomf(-0.05f, 0.05f) };
         }
 
         float radius = dynamic_cast<CircleShape*>(bodyA->m_shape)->radius + dynamic_cast<CircleShape*>(bodyB->m_shape)->radius;
@@ -65,7 +65,21 @@ namespace collision
 
     void ResolveContacts(std::vector<Contact>& contacts)
     {
+        for (auto& contact : contacts)
+        {
+            glm::vec2 relativeVelocity = contact.bodyA->m_velocity - contact.bodyB->m_velocity;
+            float normalVelocity = glm::dot(relativeVelocity, contact.normal);
 
+            if (normalVelocity > 0) continue;
+
+            float totalInvMass = contact.bodyA->m_invMass + contact.bodyB->m_invMass;
+            float impulseMagnitude = -(1.0f + contact.restitution) * normalVelocity / totalInvMass;
+
+            glm::vec2 impulse = contact.normal * impulseMagnitude;
+
+            contact.bodyA->m_velocity += (impulse * contact.bodyA->m_invMass);
+            contact.bodyB->m_velocity -= (impulse * contact.bodyB->m_invMass);
+        }
     }
 
 }

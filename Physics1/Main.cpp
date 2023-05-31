@@ -5,7 +5,10 @@
 
 int main(int argc, char* argv[]) 
 {
-    Test* test = new CollisionTest();
+    //Test* test = new ParticleTest();
+    Test* test = new ForceTest();
+    //Test* test = new JointTest();
+    //Test* test = new CollisionTest();
     test->Initialize();
 
     while (!test->IsQuit())
